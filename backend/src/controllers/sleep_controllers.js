@@ -14,7 +14,7 @@ async function sleep_create(req, res) {
   let new_sleep = await Sleep.create(sleep);
 
   if (new_sleep) {
-    res.status(200).json({ message: "Drone created successfully" });
+    res.status(200).json({ message: "Sleep created successfully" });
   }
 }
 
