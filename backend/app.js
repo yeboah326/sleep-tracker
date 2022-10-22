@@ -28,7 +28,7 @@ app.use(express.json());
 app.use(logger("short"));
 
 // Add routers to main app
-app.use("/users", user_router);
+app.use("/user", user_router);
 app.use("/sleep", sleep_router);
 
 // Run the server on port 3000
