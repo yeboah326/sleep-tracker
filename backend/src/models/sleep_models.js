@@ -9,6 +9,6 @@ const sleep_schema = mongoose.Schema({
   sleep_duration_seconds: { type: Number },
 });
 
-const Sleep = new mongoose.model("Sleep", sleep_schema);
+const Sleep = new mongoose.model("sleep_tracker_sleep", sleep_schema);
 
 module.exports = Sleep;
