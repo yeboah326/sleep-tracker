@@ -27,15 +27,9 @@ user_schema.pre("save", function (done) {
   });
 });
 
-user_schema.methods.check_password = function (guess) {
-  bcrypt.compare(guess, this.password, function (err, isMatch) {
-    if (err) {
-      return err;
-    } else {
-      console.log("Password is correct");
-      return { isMatch };
-    }
-  });
+user_schema.methods.check_password = async function (guess) {
+  const isMatch = await bcrypt.compare(guess, this.password);
+  return isMatch;
 };
 
 const User = mongoose.model("sleep_tracker_user", user_schema);
