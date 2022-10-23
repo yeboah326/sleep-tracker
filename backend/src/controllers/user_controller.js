@@ -1,4 +1,6 @@
 const User = require("../models/user_models");
+const generate_jwt = require("../helpers/generate_jwt");
+require("dotenv").config();
 
 async function user_signup(req, res) {
   const user = await User.findOne({ username: req.body.username });
@@ -16,9 +18,9 @@ async function user_login(req, res) {
   const user = await User.findOne({ username: req.body.username });
   if (user) {
     const password_correct = await user.check_password(req.body.password);
-    console.log(password_correct);
     if (password_correct) {
-      res.status(200).json({ message: "Password is correct" }); // TODO: Add proper implementaion later
+      const token = generate_jwt({ username: req.body.username });
+      res.status(200).json({ token });
     } else {
       res
         .status(400)
