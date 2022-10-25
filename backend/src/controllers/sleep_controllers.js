@@ -8,7 +8,7 @@ async function sleep_create(req, res) {
     let new_sleep = await Sleep.create(sleep);
 
     if (new_sleep) {
-      res.status(200).json(new_sleep);
+      res.status(201).json(new_sleep);
     }
   } catch (err) {
     res.status(500).json({ message: err });

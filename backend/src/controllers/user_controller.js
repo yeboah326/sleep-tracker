@@ -10,7 +10,7 @@ async function user_signup(req, res) {
     } else {
       const new_user = await User.create(req.body);
       if (new_user) {
-        res.status(200).json({ message: "User created successfully" });
+        res.status(201).json({ message: "User created successfully" });
       }
     }
   } catch (err) {
