@@ -1,20 +1,13 @@
 const Sleep = require("../models/sleep_models");
-const compute_duration_between_dates = require("../helpers/duration");
 
 async function sleep_create(req, res) {
   const sleep = req.body;
-  const { hours, minutes, seconds } = compute_duration_between_dates(
-    sleep.sleep_start,
-    sleep.sleep_stop
-  );
-  sleep.sleep_duration_hours = hours;
-  sleep.sleep_duration_minutes = minutes;
-  sleep.sleep_duration_seconds = seconds;
+  sleep.username = req.user.username;
 
   let new_sleep = await Sleep.create(sleep);
 
   if (new_sleep) {
-    res.status(200).json({ message: "Sleep created successfully" });
+    res.status(200).json(new_sleep);
   }
 }
 
@@ -33,9 +26,14 @@ async function sleep_get_all_by_username(req, res) {
 }
 
 async function sleep_update_by_sleep_sleep_id(req, res) {
-  const sleep = await Sleep.findById(req.params.sleep_id);
+  let sleep = await Sleep.findById(req.params.sleep_id);
   if (sleep) {
-    await Sleep.updateOne({ _id: sleep._id }, { ...req.body });
+    if (req.body.sleep_start) {
+      sleep.sleep_start = req.body.sleep_start;
+    } else if (req.body.sleep_stop) {
+      sleep.sleep_stop = req.body.sleep_stop;
+    }
+    await sleep.save();
     res.status(200).json({ message: "Sleep updated successfully" });
   } else {
     res.status(404).json({ message: "Sleep with given ID not found" });
