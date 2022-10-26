@@ -56,7 +56,7 @@ describe("POST /api/sleep", function test_sleep_create_success() {
 });
 
 describe("POST /api/sleep", function test_sleep_create_unauthorized() {
-  it("creates a new sleep instance for the user", async () => {
+  it("tries to create a new sleep instance for an unauthorized user", async () => {
     await create_user();
     const { token } = await login_user();
     const res = await request(app).post("/api/sleep").send({

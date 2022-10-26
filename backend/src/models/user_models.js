@@ -1,8 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
-require("dotenv").config();
-
-const SALT_FACTOR = parseInt(process.env.SALT_FACTOR);
+const { SALT_FACTOR } = require("../../config/constants");
 
 const user_schema = mongoose.Schema({
   first_name: { type: String },
